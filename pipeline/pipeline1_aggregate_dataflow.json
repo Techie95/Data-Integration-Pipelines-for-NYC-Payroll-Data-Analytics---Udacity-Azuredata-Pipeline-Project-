@@ -1,0 +1,44 @@
+{
+	"name": "pipeline1_aggregate_dataflow",
+	"properties": {
+		"activities": [
+			{
+				"name": "Data flow1",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "aggregate_dataflow",
+						"type": "DataFlowReference",
+						"parameters": {
+							"FiscalYear": "2020"
+						}
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "ls_datalake",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "stagingcontainer/dirstaging"
+					},
+					"integrationRuntime": {
+						"referenceName": "integrationRuntime1",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2023-09-04T11:01:29Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

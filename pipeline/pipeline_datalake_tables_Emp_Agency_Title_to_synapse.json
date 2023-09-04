@@ -1,0 +1,117 @@
+{
+	"name": "pipeline_datalake_tables_Emp_Agency_Title_to_synapse",
+	"properties": {
+		"activities": [
+			{
+				"name": "agency",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "datalake_agency_to_synapse",
+						"type": "DataFlowReference"
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "ls_datalake",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "stagingcontainer/dirpayrollfiles"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			},
+			{
+				"name": "employee",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "agency",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "datalake_employee_to_synapse",
+						"type": "DataFlowReference"
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "ls_datalake",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "stagingcontainer/dirpayrollfiles"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			},
+			{
+				"name": "title",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "employee",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "datalake_title_to_synapse",
+						"type": "DataFlowReference"
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "ls_datalake",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "stagingcontainer/dirpayrollfiles"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2023-09-04T12:15:24Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

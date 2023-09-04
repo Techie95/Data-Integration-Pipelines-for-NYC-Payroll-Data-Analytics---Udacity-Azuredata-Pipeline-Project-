@@ -1,0 +1,37 @@
+{
+	"name": "datalake_agency_master",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_datalake",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Azure Data Lake"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "AgencyMaster.csv",
+				"folderPath": "dirpayrollfiles",
+				"fileSystem": "stagingcontainer"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "AgencyID",
+				"type": "String"
+			},
+			{
+				"name": "AgencyName",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

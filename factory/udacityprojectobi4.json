@@ -1,0 +1,9 @@
+{
+	"name": "udacityprojectobi4",
+	"location": "southafricanorth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "d423716d-73f3-40ac-80c5-a1bfd78384c5",
+		"tenantId": "cd6683a6-aa85-46cf-aeea-92d4a1477009"
+	}
+}
